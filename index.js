@@ -16,30 +16,15 @@ const COLUMNS = ["id", "username", "password", "name", "email"];
 
 app.get("/users", function (req, res) {
   let sql = "SELECT * FROM users";
-  let condition = createCondition(req.query);
   //console.log(sql + condition);
-  con.query(sql + condition, function (err, result, fields) {
+  con.query(sql, function (err, result, fields) {
     res.send(result);
   });
 });
 
-let createCondition = function (query) {
-  //console.log(query);
-  let output = " WHERE ";
-  for (let key in query) {
-    if (COLUMNS.includes(key)) {
-      output += `${key}="${query[key]}" OR `;
-    }
-  }
-  if (output.length == 7) {
-    return "";
-  } else {
-    return output.substring(0, output.length - 4);
-  }
-};
-
 app.get("/users/:id", function (req, res) {
-  let sql = "SELECT * FROM users WHERE id=" + req.params.id;
+  const { id } = req.params;
+  let sql = "SELECT * FROM users WHERE id=" + id;
   // console.log(sql);
   con.query(sql, function (err, result, fields) {
     if (result.length > 0) {
