@@ -9,9 +9,17 @@
     <h1>Routs</h1>
     <ul>
       <li><em>GET /users</em> - Skickar tillbaka all befintlig data.</li>
+      <br />
       <li>
         <em>GET /users/{id}</em> - Skickar tillbaka sepcifik data med angivet id
         eller status 204 om den efterfrågade data saknas.
+      </li>
+      <br />
+      <li>
+        <em>POST /users</em> - Skapar en ny användare med JSON objekt på
+        formatet {"username": "unikt namn", "password": "", "name": "", email":
+        "",}. Alla fält är obligatoriska! Fyll i username, password, name och
+        email, annars skickas 422-meddelande (unprocessable entity).
       </li>
     </ul>
   </body>
