@@ -16,7 +16,6 @@ const COLUMNS = ["id", "username", "password", "name", "email"];
 
 app.get("/users", function (req, res) {
   let sql = "SELECT * FROM users";
-  //console.log(sql + condition);
   con.query(sql, function (err, result, fields) {
     res.send(result);
   });
@@ -25,12 +24,11 @@ app.get("/users", function (req, res) {
 app.get("/users/:id", function (req, res) {
   const { id } = req.params;
   let sql = "SELECT * FROM users WHERE id=" + id;
-  // console.log(sql);
   con.query(sql, function (err, result, fields) {
     if (result.length > 0) {
       res.send(result);
     } else {
-      res.sendStatus(404);
+      res.sendStatus(204);
     }
   });
 });
