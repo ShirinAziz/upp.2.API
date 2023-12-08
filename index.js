@@ -18,6 +18,7 @@ con = mysql.createConnection({
 
 const COLUMNS = ["id", "username", "password", "name", "email"];
 
+//funktion för att anropa alla befintliga användare.
 app.get("/users", function (req, res) {
   let sql = "SELECT * FROM users";
   con.query(sql, function (err, result, fields) {
@@ -25,6 +26,7 @@ app.get("/users", function (req, res) {
   });
 });
 
+//funktionen anropar specifik användare genom användar id.
 app.get("/users/:id", function (req, res) {
   const { id } = req.params;
   let sql = "SELECT * FROM users WHERE id=" + id;
@@ -37,8 +39,10 @@ app.get("/users/:id", function (req, res) {
   });
 });
 
+//json format
 app.use(express.json());
 
+//post funktion för att registera ny användare.
 app.post("/users", function (req, res) {
   const { username, password, name, email } = req.body;
   if (isValidUserData(req.body)) {
@@ -54,7 +58,6 @@ app.post("/users", function (req, res) {
         res.status(500).send("Fel i databasanropet!");
         throw err;
       }
-
       let output = {
         id: result.insertId,
         username: username,
@@ -64,7 +67,9 @@ app.post("/users", function (req, res) {
       };
       res.json(output);
     });
-  } else {
+  }
+  //om ny data, ska alla kollumner fyllas , annars felmedelande skrivs ut.
+  else {
     res.status(422).send("Please fill in all the required fields!");
   }
 });
