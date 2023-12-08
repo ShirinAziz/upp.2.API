@@ -65,6 +65,7 @@ app.post("/users", function (req, res) {
         name: name,
         email: email,
       };
+      // returnerar svar
       res.json(output);
     });
   }
@@ -74,6 +75,7 @@ app.post("/users", function (req, res) {
   }
 });
 
+//kontrollerar att det finns en body som innehåller username, password, name och email.
 function isValidUserData(body) {
   return body && body.username && body.password && body.name && body.email;
 }
